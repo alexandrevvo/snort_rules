@@ -1,0 +1,5 @@
+alert tcp any any -> any 3389 (msg:"Metasploit Bluekeep"; flow:to_server,established; content:"|03 00|"; offset:0; depth:2; content:"|43 6f 6f 6b 69 65 3a 20 6d 73 74 73 68 61 73 68 3d|"; distance:9; within:17; content:"|0b 00 00 00|"; distance: 13; sid:100000012;)
+
+content:"|03 00|"   #TPKT Header version 03, reserved 00
+content:"|43 6f 6f 6b 69 65 3a 20 6d 73 74 73 68 61 73 68 3d|"   #cookie - literal 'Cookie: mstshash='
+content:"|0b 00 00 00|" #requested_protocols
